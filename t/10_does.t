@@ -22,6 +22,6 @@ ok lives { foo(foo => Bar->new) };
 
 like dies {
     foo(foo => Baz->new());
-}, qr/Type check failed in binding to parameter '\$foo'; Reference bless\( {}, 'Baz' \) did not pass type constraint \(not DOES Foo\)/;
+}, qr/Type check failed in binding to parameter '\$foo'; Reference bless\( \{\}, 'Baz' \) did not pass type constraint \(not DOES Foo\)/;
 
 done_testing;

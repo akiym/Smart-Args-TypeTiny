@@ -22,7 +22,7 @@ isa_ok bar(x => MyClass->new()), 'MyClass';
 
 like dies {
 	foo(x => {foo => 42});
-}, qr/Type check failed in binding to parameter '\$x'; Reference {"foo" => 42} did not pass type constraint "ArrayRef\[Int\]"/;
+}, qr/Type check failed in binding to parameter '\$x'; Reference \{"foo" => 42\} did not pass type constraint "ArrayRef\[Int\]"/;
 
 like dies {
 	foo(x => [3.14]);
@@ -30,6 +30,6 @@ like dies {
 
 like dies {
 	foo(x => bless {}, 'Foo');
-}, qr/Type check failed in binding to parameter '\$x'; Reference bless\( {}, 'Foo' \) did not pass type constraint "ArrayRef\[Int\]"/;
+}, qr/Type check failed in binding to parameter '\$x'; Reference bless\( \{\}, 'Foo' \) did not pass type constraint "ArrayRef\[Int\]"/;
 
 done_testing;
