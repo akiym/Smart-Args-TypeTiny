@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/akiym/Smart-Args-TypeTiny.svg?branch=master)](https://travis-ci.org/akiym/Smart-Args-TypeTiny)
 # NAME
 
 Smart::Args::TypeTiny - We are smart, smart for you
