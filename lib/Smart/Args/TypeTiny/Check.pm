@@ -7,7 +7,7 @@ use Types::Standard -all;
 use Exporter 'import';
 our @EXPORT_OK = qw/check_rule check_type/;
 
-$Carp::CarpInternal{'Smart::Args::TypeTiny::Check'}++;
+$Carp::CarpInternal{+__PACKAGE__}++;
 
 my $ParameterRule = Dict[
     isa      => Optional[Object->plus_coercions(Str, sub { InstanceOf[$_] })],

@@ -8,7 +8,7 @@ use PadWalker qw/var_name/;
 use Exporter 'import';
 our @EXPORT = qw/args args_pos/;
 
-$Carp::CarpInternal{'Smart::Args::TypeTiny'}++;
+$Carp::CarpInternal{+__PACKAGE__}++;
 
 if ($ENV{PERL_OPTIMIZE_SMART_ARGS}) {
     # skip checking rule (note that it will disable type coercion)
