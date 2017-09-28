@@ -10,13 +10,7 @@ our @EXPORT = qw/args args_pos/;
 
 $Carp::CarpInternal{+__PACKAGE__}++;
 
-if ($ENV{PERL_OPTIMIZE_SMART_ARGS}) {
-    # skip checking rule (note that it will disable type coercion)
-    *check_rule = sub {};
-} else {
-    require Smart::Args::TypeTiny::Check;
-    *check_rule = \&Smart::Args::TypeTiny::Check::check_rule;
-}
+use Smart::Args::TypeTiny::Check qw/check_rule/;
 
 my %is_invocant = map { ($_ => 1) } qw($self $class);
 
@@ -184,6 +178,20 @@ Smart::Args::TypeTiny - We are smart, smart for you
 =head1 DESCRIPTION
 
 Smart::Args::TypeTiny is ...
+
+=head1 TIPS
+
+=head2 SKIP TYPE CHECK
+
+For optimization calling subroutine in runtime type check, you can overwrite C<check_rule> like following code:
+
+    {
+        no warnings 'redefine';
+        sub Smart::Args::TypeTiny::check_rule {
+            my ($rule, $value, $exists, $name) = @_;
+            return $value;
+        }
+    }
 
 =head1 SEE ALSO
 
