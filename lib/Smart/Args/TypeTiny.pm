@@ -177,7 +177,29 @@ Smart::Args::TypeTiny - We are smart, smart for you
 
 =head1 DESCRIPTION
 
-Smart::Args::TypeTiny is ...
+Smart::Args::TypeTiny provides L<Smart::Args>-like argument validator using L<Type::Tiny>.
+
+=head1 IMCOMPATIBLE CHANGES WITH Smart::Args
+
+=head2 ISA TAKES Type::Tiny TYPE OBJECT OR INSTANCE CLASS NAME
+
+This code is expected C<$p> as InstanceOf['Int'], you should specify L<Type::Tiny>'s type constraint.
+
+    use Types::Standard -all;
+
+    sub foo {
+        args my $p => 'Int', # :( InstanceOf['Int']
+             my $q => Int,   # :) Int
+             my $r => 'Foo', # :) InstanceOf['Foo']
+    }
+
+=head2 DEFAULT PARAMETER CAN TAKE CODEREF AS LAZY VALUE
+
+    sub foo {
+        args my $p => {isa => 'Foo', default => create_foo},         # :( create_foo is called every time even if $p is passed
+             my $q => {isa => 'Foo', default => sub { create_foo }}, # :) create_foo is called only when $p is not passed
+             ;
+    }
 
 =head1 TIPS
 
@@ -195,7 +217,7 @@ For optimization calling subroutine in runtime type check, you can overwrite C<c
 
 =head1 SEE ALSO
 
-L<Smart::Args>
+L<Smart::Args>, L<Params::Validate>, L<Params::ValidationCompiler>
 
 L<Type::Tiny>, L<Types::Standard>
 

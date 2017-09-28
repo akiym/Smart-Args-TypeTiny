@@ -51,11 +51,47 @@ Smart::Args::TypeTiny - We are smart, smart for you
 
 # DESCRIPTION
 
-Smart::Args::TypeTiny is ...
+Smart::Args::TypeTiny provides [Smart::Args](https://metacpan.org/pod/Smart::Args)-like argument validator using [Type::Tiny](https://metacpan.org/pod/Type::Tiny).
+
+# IMCOMPATIBLE CHANGES WITH Smart::Args
+
+## ISA TAKES Type::Tiny TYPE OBJECT OR INSTANCE CLASS NAME
+
+This code is expected `$p` as InstanceOf\['Int'\], you should specify [Type::Tiny](https://metacpan.org/pod/Type::Tiny)'s type constraint.
+
+    use Types::Standard -all;
+
+    sub foo {
+        args my $p => 'Int', # :( InstanceOf['Int']
+             my $q => Int,   # :) Int
+             my $r => 'Foo', # :) InstanceOf['Foo']
+    }
+
+## DEFAULT PARAMETER CAN TAKE CODEREF AS LAZY VALUE
+
+    sub foo {
+        args my $p => {isa => 'Foo', default => create_foo},         # :( create_foo is called every time even if $p is passed
+             my $q => {isa => 'Foo', default => sub { create_foo }}, # :) create_foo is called only when $p is not passed
+             ;
+    }
+
+# TIPS
+
+## SKIP TYPE CHECK
+
+For optimization calling subroutine in runtime type check, you can overwrite `check_rule` like following code:
+
+    {
+        no warnings 'redefine';
+        sub Smart::Args::TypeTiny::check_rule {
+            my ($rule, $value, $exists, $name) = @_;
+            return $value;
+        }
+    }
 
 # SEE ALSO
 
-[Smart::Args](https://metacpan.org/pod/Smart::Args)
+[Smart::Args](https://metacpan.org/pod/Smart::Args), [Params::Validate](https://metacpan.org/pod/Params::Validate), [Params::ValidationCompiler](https://metacpan.org/pod/Params::ValidationCompiler)
 
 [Type::Tiny](https://metacpan.org/pod/Type::Tiny), [Types::Standard](https://metacpan.org/pod/Types::Standard)
 
@@ -68,4 +104,4 @@ it under the same terms as Perl itself.
 
 # AUTHOR
 
-Takumi Akiyama &lt;t.akiym@gmail.com>
+Takumi Akiyama <t.akiym@gmail.com>
