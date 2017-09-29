@@ -50,7 +50,7 @@
          "requires" : {
             "Moo" : "0",
             "Test2" : "0",
-            "Test2::Suite" : "0"
+            "Test2::Suite" : "0.000077"
          }
       }
    },
