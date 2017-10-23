@@ -77,7 +77,7 @@ sub rule_to_type {
         } else {
             my $type = Type::Utils::dwim_type(
                 $isa,
-                fallback => ['make_class_type'],
+                fallback => ['lookup_via_mouse', 'make_class_type'],
             );
             $type->{display_name} = $isa;
             $reg->add_type($type, $isa);
