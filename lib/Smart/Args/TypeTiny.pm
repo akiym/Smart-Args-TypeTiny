@@ -38,7 +38,7 @@ sub args {
     my $args = (@DB::args == 1 && ref $DB::args[0] eq 'HASH')
             ?    $DB::args[0]  # must be hash
             : +{ @DB::args };  # must be key-value list
-    my %kv;
+    my $kv = {};
 
     # args my $var => RULE
     #         ~~~~    ~~~~
@@ -51,7 +51,7 @@ sub args {
 
         # with rule (my $foo => RULE, ...)
         if (defined $_[$i+1]) {
-            $_[$i] = $kv{$name} = check_rule($_[$i+1], $args->{$name}, exists $args->{$name}, $name);
+            $_[$i] = $kv->{$name} = check_rule($_[$i+1], $args->{$name}, exists $args->{$name}, $name);
             delete $args->{$name};
             $i++;
         }
@@ -60,7 +60,7 @@ sub args {
             unless (exists $args->{$name}) {
                 Carp::confess("Required parameter '$name' not passed");
             }
-            $_[$i] = $kv{$name} = delete $args->{$name};
+            $_[$i] = $kv->{$name} = delete $args->{$name};
         }
     }
 
@@ -68,7 +68,7 @@ sub args {
         Carp::confess("Unexpected parameter '$name' passed");
     }
 
-    return %kv;
+    return $kv;
 }
 
 sub args_pos {
@@ -93,7 +93,7 @@ sub args_pos {
     }
 
     my $args = [@DB::args];
-    my %kv;
+    my $kv = {};
 
     # args my $var => RULE
     #         ~~~~    ~~~~
@@ -106,7 +106,7 @@ sub args_pos {
 
         # with rule (my $foo => RULE, ...)
         if (defined $_[$i+1]) {
-            $_[$i] = $kv{$name} = check_rule($_[$i+1], $args->[0], @$args > 0, $name);
+            $_[$i] = $kv->{$name} = check_rule($_[$i+1], $args->[0], @$args > 0, $name);
             shift @$args;
             $i++;
         }
@@ -115,7 +115,7 @@ sub args_pos {
             unless (@$args > 0) {
                 Carp::confess("Required parameter '$name' not passed");
             }
-            $_[$i] = $kv{$name} = shift @$args;
+            $_[$i] = $kv->{$name} = shift @$args;
         }
     }
 
@@ -123,7 +123,7 @@ sub args_pos {
         Carp::confess('Too many parameters passed');
     }
 
-    return %kv;
+    return $kv;
 }
 
 1;

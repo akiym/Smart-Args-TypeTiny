@@ -8,32 +8,26 @@ use Smart::Args::TypeTiny;
     sub new { bless {}, shift }
 
     sub class_method {
-        my %args = args my $class => 'ClassName',
-                        my $x     => 'Int',
-                        my $y     => 'Str',
-                        my $z     => { isa => 'Int', default => 10 },
-                        ;
-
-        return \%args;
+        args my $class => 'ClassName',
+             my $x     => 'Int',
+             my $y     => 'Str',
+             my $z     => { isa => 'Int', default => 10 },
+             ;
     }
 
     sub instance_method {
-        my %args = args my $self,
-                        my $x => 'Int',
-                        my $y => 'Str',
-                        my $z => { isa => 'HashRef', optional => 1 },
-                        ;
-
-        return \%args;
+        args my $self,
+             my $x => 'Int',
+             my $y => 'Str',
+             my $z => { isa => 'HashRef', optional => 1 },
+             ;
     }
 }
 
 sub foo {
-    my %args = args_pos my $x => 'Int',
-                        my $y => 'Str',
-                        ;
-
-    return \%args;
+    args_pos my $x => 'Int',
+             my $y => 'Str',
+             ;
 }
 
 is +Foo->class_method(x => 1, y => 'one'), {x => 1, y => 'one', z => 10};
