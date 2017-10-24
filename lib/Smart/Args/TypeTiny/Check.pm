@@ -5,7 +5,7 @@ use Carp ();
 use Scalar::Util qw/blessed/;
 use Type::Registry;
 use Type::Utils;
-use Types::Standard -all;
+use Types::Standard -types;
 
 use Exporter 'import';
 our @EXPORT_OK = qw/check_rule check_type/;
@@ -32,7 +32,7 @@ sub check_rule {
     } else {
         if (exists $rule->{default}) {
             my $default = $rule->{default};
-            return check_type($type, CodeRef->check($default) ? $default->() : $default, $name);
+            return check_type($type, ref $default eq 'CODE' ? $default->() : $default, $name);
         } elsif (!$rule->{optional}) {
             Carp::confess("Required parameter '$name' not passed");
         }
