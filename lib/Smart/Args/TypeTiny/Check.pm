@@ -28,6 +28,7 @@ sub check_rule {
 
     my $type = rule_to_type($rule);
     if ($exists) {
+        return $value if !defined $value && $rule->{optional};
         return check_type($type, $value, $name);
     } else {
         if (exists $rule->{default}) {
