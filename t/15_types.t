@@ -1,5 +1,4 @@
 use Test2::V0;
-use Types::Standard -all;
 use Smart::Args::TypeTiny;
 use Mouse;
 use Mouse::Util::TypeConstraints;
