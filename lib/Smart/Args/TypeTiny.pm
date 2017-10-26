@@ -259,6 +259,8 @@ Type name or L<Type::Tiny>'s type constraint.
 
 =item Mouse::Util::TypeConstraints
 
+Enable if Mouse.pm is loaded.
+
     use Mouse::Util::TypeConstraints;
 
     subtype 'PositiveInt',
