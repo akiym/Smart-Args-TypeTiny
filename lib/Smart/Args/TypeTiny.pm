@@ -204,7 +204,7 @@ Smart::Args::TypeTiny provides L<Smart::Args>-like argument validator using L<Ty
 =item Optional allows to pass undef to parameter
 
     sub foo {
-        args my $p => 'Int';
+        args my $p => {isa => 'Int', optional => 1};
     }
 
     foo();           # $p = undef

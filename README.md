@@ -70,7 +70,7 @@ Smart::Args::TypeTiny provides [Smart::Args](https://metacpan.org/pod/Smart::Arg
 - Optional allows to pass undef to parameter
 
         sub foo {
-            args my $p => 'Int';
+            args my $p => {isa => 'Int', optional => 1};
         }
 
         foo();           # $p = undef
