@@ -5,7 +5,6 @@ use Carp ();
 use Scalar::Util qw/blessed/;
 use Type::Registry;
 use Type::Utils;
-use Types::Standard -types;
 
 use Exporter 'import';
 our @EXPORT_OK = qw/check_rule check_type/;
@@ -13,13 +12,6 @@ our @EXPORT_OK = qw/check_rule check_type/;
 $Carp::CarpInternal{+__PACKAGE__}++;
 
 my $reg = Type::Registry->for_class(__PACKAGE__);
-
-my $ParameterRule = Dict[
-    isa      => Optional[Str|Object],
-    does     => Optional[Str|Object],
-    optional => Optional[Bool],
-    default  => Optional[Any|CodeRef],
-];
 
 sub check_rule {
     my ($rule, $value, $exists, $name) = @_;
@@ -59,8 +51,12 @@ sub check_type {
 sub parameter_rule {
     my ($rule, $name) = @_;
 
-    $rule = ref $rule eq 'HASH' ? $rule : {isa => $rule};
-    unless ($ParameterRule->check($rule)) {
+    return {isa => $rule} unless ref $rule eq 'HASH';
+
+    my %check = map { ($_ => undef) } keys %$rule;
+    delete $check{$_} for qw/isa does optional default/;
+
+    if (%check) {
         Carp::croak("Malformed rule for '$name' (isa, does, optional, default)");
     }
 
