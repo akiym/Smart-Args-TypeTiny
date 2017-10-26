@@ -1,5 +1,5 @@
 requires 'PadWalker';
-requires 'Type::Tiny';
+requires 'Type::Tiny' => '1.002000';
 
 on 'test' => sub {
     requires 'Test2';
