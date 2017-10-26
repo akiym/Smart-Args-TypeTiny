@@ -4,7 +4,7 @@
       "Takumi Akiyama <t.akiym@gmail.com>"
    ],
    "dynamic_config" : 0,
-   "generated_by" : "Minilla/v3.0.11, CPAN::Meta::Converter version 2.150005",
+   "generated_by" : "Minilla/v3.0.13, CPAN::Meta::Converter version 2.150005",
    "license" : [
       "perl_5"
    ],
@@ -49,6 +49,7 @@
       "test" : {
          "requires" : {
             "Moo" : "0",
+            "Mouse" : "0",
             "Test2" : "0",
             "Test2::Suite" : "0.000077"
          }
