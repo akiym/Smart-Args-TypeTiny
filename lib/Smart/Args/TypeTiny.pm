@@ -36,8 +36,8 @@ sub args {
     }
 
     my $args = (@DB::args == 1 && ref $DB::args[0] eq 'HASH')
-            ?    $DB::args[0]  # must be hash
-            : +{ @DB::args };  # must be key-value list
+            ? +{ %{$DB::args[0]} } # must be hash
+            : +{ @DB::args };      # must be key-value list
     my $kv = {};
 
     # args my $var => RULE
