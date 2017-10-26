@@ -117,6 +117,8 @@ Smart::Args::TypeTiny provides [Smart::Args](https://metacpan.org/pod/Smart::Arg
 
         - Mouse::Util::TypeConstraints
 
+            Enable if Mouse.pm is loaded.
+
                 use Mouse::Util::TypeConstraints;
 
                 subtype 'PositiveInt',

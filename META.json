@@ -43,7 +43,7 @@
       "runtime" : {
          "requires" : {
             "PadWalker" : "0",
-            "Type::Tiny" : "0"
+            "Type::Tiny" : "1.002000"
          }
       },
       "test" : {
