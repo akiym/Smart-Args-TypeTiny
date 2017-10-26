@@ -15,10 +15,10 @@ $Carp::CarpInternal{+__PACKAGE__}++;
 my $reg = Type::Registry->for_class(__PACKAGE__);
 
 my $ParameterRule = Dict[
-    isa      => Optional[Object|Str],
-    does     => Optional[Object|Str],
+    isa      => Optional[Str|Object],
+    does     => Optional[Str|Object],
     optional => Optional[Bool],
-    default  => Optional[Any],
+    default  => Optional[Any|CodeRef],
 ];
 
 sub check_rule {
