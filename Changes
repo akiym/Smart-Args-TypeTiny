@@ -2,6 +2,11 @@ Revision history for Perl extension Smart-Args-TypeTiny
 
 {{$NEXT}}
 
+0.12 2017-10-29T13:41:32Z
+
+    - stable Smart::Args::TypeTiny::Check API
+    - depend Test2::V0 instead of Test2::Suite
+
 0.11 2017-10-26T15:19:33Z
 
     - require Type::Tiny >= 1.002001
