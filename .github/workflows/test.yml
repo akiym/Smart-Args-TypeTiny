@@ -1,0 +1,18 @@
+name: test
+on:
+  push:
+    branches:
+      - 'master'
+    tags-ignore:
+      - '*'
+  pull_request:
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: shogo82148/actions-setup-perl@v1
+        with:
+          perl-version: 'latest'
+      - run: cpm install
+      - run: prove -lv t
