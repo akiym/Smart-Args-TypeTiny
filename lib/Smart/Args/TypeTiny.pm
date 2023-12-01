@@ -322,7 +322,7 @@ For optimization calling subroutine in runtime type check, you can overwrite C<c
         *Smart::Args::TypeTiny::check_rule = \&Smart::Args::TypeTiny::Check::no_check_rule;
     }
 
-C<Smart::Args::TypeTiny::Check::no_check_rule> is a function without type checking, but settings such as default and optional work the same as C<check_rule>.
+C<Smart::Args::TypeTiny::Check::no_check_rule> is a function without type checking and type coerce, but settings such as default and optional work the same as C<check_rule>.
 
 =head1 SEE ALSO
 

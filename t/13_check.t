@@ -79,6 +79,7 @@ sub type_name {
             test     => 'ArrayRef with coercion',
             args     => [ArrayRef->plus_coercions(Int, q{[$_]}), 123, 1, 'foo'],
             expected => [123],
+            no_check_rule_expected => 123, # no_check_rule does not coerce value
         },
     );
 
@@ -121,9 +122,16 @@ sub type_name {
 
         subtest '*Not* throw an exception if the type check fails' => sub {
             for (@type_tests) {
-                my ($test, $args) = @{$_}{qw/test args/};
+                my ($test, $args, $expected, $throw, $no_check_rule_expected) = @{$_}{qw/test args expected throw no_check_rule_expected/};
                 my ($rule, $value, $exists, $name) = @$args;
-                ok lives { no_check_rule($rule, $value, $exists, $name) }, $test;
+                if ($throw) {
+                    # not dies
+                    ok lives { no_check_rule($rule, $value, $exists, $name) }, $test;
+                } elsif (defined $no_check_rule_expected) {
+                    is no_check_rule($rule, $value, $exists, $name), $no_check_rule_expected, $test . ' (no_check_rule)';
+                } else {
+                    is no_check_rule($rule, $value, $exists, $name), $expected, $test;
+                }
             }
         }
     };
